@@ -8,7 +8,8 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MovieListAdapter(val movieList: ArrayList<MovieResult>): RecyclerView.Adapter<MovieListAdapter.MovieHolder>() {
+class MovieListAdapter(val movies:List<MovieResult>): RecyclerView.Adapter<MovieListAdapter.MovieHolder>() {
+
     inner class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivMovieImage: ImageView = itemView.findViewById(R.id.ivMovieImage)
         val tvMovieTitle: TextView = itemView.findViewById(R.id.tvMovieTitle)
@@ -23,11 +24,12 @@ class MovieListAdapter(val movieList: ArrayList<MovieResult>): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        val movie = movieList[position]
+        val movie = movies[position]
         holder.tvMovieTitle.text = movie.title
         holder.tvMovieReleaseDate.text = movie.releaseDate
         holder.ratingBar.rating = movie.rating
+        val movieImageUrl = "${Constants.IMAGE_BASE_URL}${movie.imagePath}"
     }
 
-    override fun getItemCount() = movieList.size
+    override fun getItemCount() = movies.size
 }
