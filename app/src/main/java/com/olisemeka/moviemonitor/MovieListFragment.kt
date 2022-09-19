@@ -31,7 +31,7 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val context = requireContext()
         lifecycleScope.launchWhenCreated {
             binding.progressBar.isVisible = true
             val response = try{
@@ -46,7 +46,7 @@ class MovieListFragment : Fragment() {
             }
             if (response.isSuccessful && response.body() != null){
                 val body = response.body()!!
-                binding.rvMovie.adapter = MovieListAdapter(body.results)
+                binding.rvMovie.adapter = MovieListAdapter(context, body.results)
             }
             binding.progressBar.isVisible = false
         }
