@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(val context:Context, val movies:List<MovieResult>): RecyclerView.Adapter<MovieListAdapter.MovieHolder>() {
 
@@ -29,7 +31,10 @@ class MovieListAdapter(val context:Context, val movies:List<MovieResult>): Recyc
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val movie = movies[position]
         holder.tvMovieTitle.text = movie.title
-        holder.tvMovieReleaseDate.text = movie.releaseDate
+
+        var formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
+        holder.tvMovieReleaseDate.text = LocalDate.parse(movie.releaseDate).format(formatter)
+
         holder.ratingBar.rating = movie.rating
         val movieImageUrl = "${Constants.IMAGE_BASE_URL}${movie.imagePath}"
         Glide.with(context)
