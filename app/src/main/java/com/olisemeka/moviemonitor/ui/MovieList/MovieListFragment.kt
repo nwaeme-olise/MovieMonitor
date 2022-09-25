@@ -1,18 +1,17 @@
-package com.olisemeka.moviemonitor
+package com.olisemeka.moviemonitor.ui.MovieList
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.olisemeka.moviemonitor.api.RetrofitInstance
 import com.olisemeka.moviemonitor.databinding.FragmentMovieListBinding
-import retrofit2.Call
-import retrofit2.Callback
+import com.olisemeka.moviemonitor.ui.MovieList.MovieListAdapter
+import com.olisemeka.moviemonitor.util.Constants
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 
 class MovieListFragment : Fragment() {

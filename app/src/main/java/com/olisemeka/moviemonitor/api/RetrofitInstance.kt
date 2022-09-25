@@ -1,5 +1,6 @@
-package com.olisemeka.moviemonitor
+package com.olisemeka.moviemonitor.api
 
+import com.olisemeka.moviemonitor.util.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

@@ -1,4 +1,4 @@
-package com.olisemeka.moviemonitor
+package com.olisemeka.moviemonitor.util
 
 object GenreIdConverter {
     fun convertIdToGenre(genreIds: List<Int>): String{
