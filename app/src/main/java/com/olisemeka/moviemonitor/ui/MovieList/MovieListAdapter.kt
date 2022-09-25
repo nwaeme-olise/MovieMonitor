@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.olisemeka.moviemonitor.MovieResult
+import com.olisemeka.moviemonitor.data.MovieResult
 import com.olisemeka.moviemonitor.R
 import com.olisemeka.moviemonitor.util.Constants
 import com.olisemeka.moviemonitor.util.GenreIdConverter

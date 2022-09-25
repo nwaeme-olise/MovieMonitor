@@ -2,15 +2,5 @@
     <string name="app_name">MovieMonitor</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string-array name="age">
-        <entry>12</entry>
-        <entry>13</entry>
-        <entry>14</entry>
-        <entry>15</entry>
-        <entry>16</entry>
-        <entry>17</entry>
-        <entry>18</entry>
-        <entry>Older than 18</entry>
-        <entry>Younger than 12</entry>
-    </string-array>
+
 </resources>

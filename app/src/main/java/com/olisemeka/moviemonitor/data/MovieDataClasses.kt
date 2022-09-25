@@ -1,4 +1,4 @@
-package com.olisemeka.moviemonitor
+package com.olisemeka.moviemonitor.data
 
 import com.google.gson.annotations.SerializedName
 

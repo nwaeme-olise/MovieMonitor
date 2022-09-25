@@ -1,6 +1,6 @@
 package com.olisemeka.moviemonitor.api
 
-import com.olisemeka.moviemonitor.MovieListResult
+import com.olisemeka.moviemonitor.data.MovieListResult
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
