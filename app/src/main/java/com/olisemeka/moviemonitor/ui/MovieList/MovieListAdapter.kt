@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -17,7 +19,7 @@ import com.olisemeka.moviemonitor.util.GenreIdConverter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(val context:Context, val movies:List<MovieResult>): RecyclerView.Adapter<MovieListAdapter.MovieHolder>() {
+class MovieListAdapter(private val context: Context): ListAdapter<MovieResult, MovieListAdapter.MovieHolder>(MovieDiffCallback) {
 
     inner class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivMovieImage: ImageView = itemView.findViewById(R.id.ivMovieImage)
@@ -33,7 +35,7 @@ class MovieListAdapter(val context:Context, val movies:List<MovieResult>): Recyc
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        val movie = movies[position]
+        val movie = getItem(position)
         holder.tvMovieTitle.text = movie.title
 
         var formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
@@ -51,5 +53,14 @@ class MovieListAdapter(val context:Context, val movies:List<MovieResult>): Recyc
 
     }
 
-    override fun getItemCount() = movies.size
+    object MovieDiffCallback: DiffUtil.ItemCallback<MovieResult>(){
+        override fun areItemsTheSame(oldItem: MovieResult, newItem: MovieResult): Boolean {
+            return oldItem.title == newItem.title
+        }
+
+        override fun areContentsTheSame(oldItem: MovieResult, newItem: MovieResult): Boolean {
+            return oldItem == newItem
+        }
+
+    }
 }
