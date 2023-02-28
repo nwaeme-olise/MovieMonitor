@@ -1,4 +1,4 @@
-package com.olisemeka.moviemonitor.ui.MovieList
+package com.olisemeka.moviemonitor.ui.movielist
 
 import android.os.Bundle
 import android.util.Log
@@ -7,16 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import com.olisemeka.moviemonitor.api.RetrofitInstance
 import com.olisemeka.moviemonitor.data.MovieRepository
 import com.olisemeka.moviemonitor.databinding.FragmentMovieListBinding
-import com.olisemeka.moviemonitor.ui.MovieList.MovieListAdapter
-import com.olisemeka.moviemonitor.util.Constants
-import retrofit2.HttpException
-import java.io.IOException
+import com.olisemeka.moviemonitor.util.Resource
 
 class MovieListFragment : Fragment() {
     private var _binding: FragmentMovieListBinding? = null
@@ -35,18 +31,31 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel: MovieListViewModel by viewModels { MovieListViewModelProviderFactory(movieRepository)  }
+        val viewModel: MovieListViewModel by activityViewModels { MovieListViewModelProviderFactory(movieRepository)  }
         val adapter = MovieListAdapter(requireContext())
         binding.rvMovie.adapter = adapter
         binding.progressBar.isVisible = true
-        viewModel.movieListResults.observe(viewLifecycleOwner, Observer {response ->
+        viewModel.movieListResults.observe(viewLifecycleOwner) { response ->
+//
+            when (response) {
+                is Resource.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
 
-                adapter.submitList(response.results)
-                binding.progressBar.isVisible = false
+                is Resource.Success -> {
+                    binding.progressBar.isVisible = false
+                    Log.d("MovieListFragment", "${response.data?.results}")
+                    response.data?.let {
+                        adapter.submitList(it.results)
+                    }
+                }
 
-
-
-        })
+                is Resource.Error -> {
+                    binding.progressBar.isVisible = false
+                    Log.e("MovieListFragment", "${response.message}")
+                }
+            }
+        }
 
 //        lifecycleScope.launchWhenCreated {
 //            binding.progressBar.isVisible = true

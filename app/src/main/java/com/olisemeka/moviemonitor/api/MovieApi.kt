@@ -2,6 +2,7 @@ package com.olisemeka.moviemonitor.api
 
 import com.olisemeka.moviemonitor.data.MovieListResult
 import com.olisemeka.moviemonitor.util.Constants.API_KEY
+import com.olisemeka.moviemonitor.util.Resource
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,5 +19,5 @@ interface MovieApi {
 
         @Query("api_key")
     apiKey: String = API_KEY,
-    ): Response<MovieListResult>
+    ): MovieListResult
 }

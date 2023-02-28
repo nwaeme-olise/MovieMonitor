@@ -1,4 +1,4 @@
-package com.olisemeka.moviemonitor.ui.MovieList
+package com.olisemeka.moviemonitor.ui.movielist
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,14 @@ class MovieListAdapter(private val context: Context): ListAdapter<MovieResult, M
         val tvMovieReleaseDate: TextView = itemView.findViewById(R.id.tvMovieReleaseDate)
         val tvMovieGenre: TextView = itemView.findViewById(R.id.tvMovieGenre)
         val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
+        var moviePosition = 0
+
+        init{
+            itemView.setOnClickListener {view ->
+                val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(moviePosition)
+                view.findNavController().navigate(action)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
@@ -36,6 +45,7 @@ class MovieListAdapter(private val context: Context): ListAdapter<MovieResult, M
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val movie = getItem(position)
+        holder.moviePosition = position
         holder.tvMovieTitle.text = movie.title
 
         var formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
