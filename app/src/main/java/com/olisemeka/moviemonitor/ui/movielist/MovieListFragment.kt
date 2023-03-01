@@ -8,16 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import com.olisemeka.moviemonitor.data.MovieRepository
+import com.olisemeka.moviemonitor.data.repository.MovieRepositoryImpl
 import com.olisemeka.moviemonitor.databinding.FragmentMovieListBinding
 import com.olisemeka.moviemonitor.util.Resource
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MovieListFragment : Fragment() {
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
-    private val movieRepository by lazy{ MovieRepository() }
+
+    @Inject
+    lateinit var movieRepository: MovieRepositoryImpl
 
 
     override fun onCreateView(

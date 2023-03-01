@@ -6,20 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import com.olisemeka.moviemonitor.data.MovieRepository
+import com.olisemeka.moviemonitor.data.repository.MovieRepositoryImpl
 import com.olisemeka.moviemonitor.databinding.FragmentMovieDetailsBinding
 import com.olisemeka.moviemonitor.ui.movielist.MovieListViewModel
 import com.olisemeka.moviemonitor.ui.movielist.MovieListViewModelProviderFactory
 import com.olisemeka.moviemonitor.util.GenreIdConverter
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
     private var _binding: FragmentMovieDetailsBinding? = null
     private val binding get() = _binding!!
-    private val movieRepository by lazy{ MovieRepository() }
-    val args: MovieDetailsFragmentArgs by navArgs()
+
+    @Inject
+    lateinit var movieRepository: MovieRepositoryImpl
+
+    private val args: MovieDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
