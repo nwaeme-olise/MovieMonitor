@@ -3,7 +3,10 @@ package com.olisemeka.moviemonitor.data
 import com.google.gson.annotations.SerializedName
 
 data class MovieListResult(
-    val results: List<MovieResult>
+    val results: List<MovieResult>,
+
+    @SerializedName("total_pages")
+    val totalPages: Int
 )
 
 data class MovieResult(

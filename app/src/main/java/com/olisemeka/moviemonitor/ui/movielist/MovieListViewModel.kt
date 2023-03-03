@@ -21,7 +21,7 @@ class MovieListViewModel @Inject constructor(private val movieRepository: MovieR
 
     private fun getMovieListResults() = viewModelScope.launch {
         _movieListResults.value = Resource.Loading()
-        _movieListResults.value = movieRepository.getMovieListResults(1, sortBy= Constants.SORT_ORDER)
+        _movieListResults.value = movieRepository.getMovieListResults()
 
     }
 }
