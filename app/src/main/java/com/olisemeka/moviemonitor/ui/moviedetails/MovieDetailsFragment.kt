@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.olisemeka.moviemonitor.data.repository.MovieRepositoryImpl
 import com.olisemeka.moviemonitor.databinding.FragmentMovieDetailsBinding
@@ -37,15 +38,22 @@ class MovieDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val viewModel: MovieListViewModel by activityViewModels { MovieListViewModelProviderFactory(movieRepository)}
         val moviePosition = args.moviePosition
-        viewModel.movieListResults.observe(viewLifecycleOwner) { response ->
-            val movieResponse = response.data?.results
-            binding.tvSynopsis.text = movieResponse?.get(moviePosition)?.overview
-            binding.tvReleaseDate.text = movieResponse?.get(moviePosition)?.releaseDate
-            binding.tvGenre.text = movieResponse?.get(moviePosition)?.genreIds?.let {
-                GenreIdConverter.convertIdToGenre(it)
-            }
 
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.movieFlow.collect{
+
+            }
         }
+
+//        viewModel.movieListResults.observe(viewLifecycleOwner) { response ->
+//            val movieResponse = response.data?.results
+//            binding.tvSynopsis.text = movieResponse?.get(moviePosition)?.overview
+//            binding.tvReleaseDate.text = movieResponse?.get(moviePosition)?.releaseDate
+//            binding.tvGenre.text = movieResponse?.get(moviePosition)?.genreIds?.let {
+//                GenreIdConverter.convertIdToGenre(it)
+//            }
+//
+//        }
     }
 
     override fun onDestroy() {

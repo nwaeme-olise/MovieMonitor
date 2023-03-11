@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +21,7 @@ import com.olisemeka.moviemonitor.util.GenreIdConverter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val context: Context): ListAdapter<MovieResult, MovieListAdapter.MovieHolder>(MovieDiffCallback) {
+class MovieListAdapter(private val context: Context): PagingDataAdapter<MovieResult, MovieListAdapter.MovieHolder>(MovieDiffCallback) {
 
     inner class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivMovieImage: ImageView = itemView.findViewById(R.id.ivMovieImage)
@@ -45,22 +46,23 @@ class MovieListAdapter(private val context: Context): ListAdapter<MovieResult, M
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val movie = getItem(position)
-        holder.moviePosition = position
-        holder.tvMovieTitle.text = movie.title
+        if (movie != null) {
+            holder.moviePosition = position
+            holder.tvMovieTitle.text = movie.title
 
-        var formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
-        holder.tvMovieReleaseDate.text = LocalDate.parse(movie.releaseDate).format(formatter)
+            val formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
+            holder.tvMovieReleaseDate.text = LocalDate.parse(movie.releaseDate).format(formatter)
 
-        holder.ratingBar.rating = movie.rating
-        val movieImageUrl = "${Constants.IMAGE_BASE_URL}${movie.imagePath}"
-        Glide.with(context)
-            .load(movieImageUrl)
-            .centerCrop()
-            .transform(RoundedCorners(20))
-            .into(holder.ivMovieImage)
+            holder.ratingBar.rating = movie.rating
+            val movieImageUrl = "${Constants.IMAGE_BASE_URL}${movie.imagePath}"
+            Glide.with(context)
+                .load(movieImageUrl)
+                .centerCrop()
+                .transform(RoundedCorners(20))
+                .into(holder.ivMovieImage)
 
-        holder.tvMovieGenre.text = GenreIdConverter.convertIdToGenre(movie.genreIds)
-
+            holder.tvMovieGenre.text = GenreIdConverter.convertIdToGenre(movie.genreIds)
+        }
     }
 
     object MovieDiffCallback: DiffUtil.ItemCallback<MovieResult>(){

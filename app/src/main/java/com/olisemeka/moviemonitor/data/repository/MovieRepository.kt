@@ -1,8 +1,11 @@
 package com.olisemeka.moviemonitor.data.repository
 
+import androidx.paging.PagingData
 import com.olisemeka.moviemonitor.data.MovieListResult
+import com.olisemeka.moviemonitor.data.MovieResult
 import com.olisemeka.moviemonitor.util.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
-    suspend fun getMovieListResults(): Resource<MovieListResult>
+    fun getMovieListResults(): Flow<PagingData<MovieResult>>
 }
