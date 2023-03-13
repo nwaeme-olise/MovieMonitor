@@ -36,24 +36,12 @@ class MovieDetailsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val viewModel: MovieListViewModel by activityViewModels { MovieListViewModelProviderFactory(movieRepository)}
-        val moviePosition = args.moviePosition
-
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.movieFlow.collect{
-
-            }
+        val movie = args.movie
+        binding.tvSynopsis.text = movie.overview
+        binding.tvReleaseDate.text = movie.releaseDate
+        binding.tvGenre.text = movie.genreIds.let {
+            GenreIdConverter.convertIdToGenre(it)
         }
-
-//        viewModel.movieListResults.observe(viewLifecycleOwner) { response ->
-//            val movieResponse = response.data?.results
-//            binding.tvSynopsis.text = movieResponse?.get(moviePosition)?.overview
-//            binding.tvReleaseDate.text = movieResponse?.get(moviePosition)?.releaseDate
-//            binding.tvGenre.text = movieResponse?.get(moviePosition)?.genreIds?.let {
-//                GenreIdConverter.convertIdToGenre(it)
-//            }
-//
-//        }
     }
 
     override fun onDestroy() {

@@ -20,7 +20,7 @@
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details" >
         <argument
-            android:name="moviePosition"
-            app:argType="integer" />
+            android:name="movie"
+            app:argType="com.olisemeka.moviemonitor.data.MovieResult" />
     </fragment>
 </navigation>

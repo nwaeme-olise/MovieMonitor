@@ -29,11 +29,11 @@ class MovieListAdapter(private val context: Context): PagingDataAdapter<MovieRes
         val tvMovieReleaseDate: TextView = itemView.findViewById(R.id.tvMovieReleaseDate)
         val tvMovieGenre: TextView = itemView.findViewById(R.id.tvMovieGenre)
         val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
-        var moviePosition = 0
+        var movie: MovieResult? = null
 
         init{
             itemView.setOnClickListener {view ->
-                val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(moviePosition)
+                val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(movie!!)
                 view.findNavController().navigate(action)
             }
         }
@@ -47,13 +47,16 @@ class MovieListAdapter(private val context: Context): PagingDataAdapter<MovieRes
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val movie = getItem(position)
         if (movie != null) {
-            holder.moviePosition = position
-            holder.tvMovieTitle.text = movie.title
+            holder.movie = movie
+            holder.tvMovieTitle.text = movie.title ?: ""
 
             val formatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
-            holder.tvMovieReleaseDate.text = LocalDate.parse(movie.releaseDate).format(formatter)
+            val releaseDate = movie.releaseDate
+            if (releaseDate != null) {
+                holder.tvMovieReleaseDate.text = LocalDate.parse(releaseDate).format(formatter)
+            }
 
-            holder.ratingBar.rating = movie.rating
+            holder.ratingBar.rating = (movie.rating ?: 0) as Float
             val movieImageUrl = "${Constants.IMAGE_BASE_URL}${movie.imagePath}"
             Glide.with(context)
                 .load(movieImageUrl)
