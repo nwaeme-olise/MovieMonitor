@@ -60,6 +60,7 @@ class MovieListAdapter(private val context: Context): PagingDataAdapter<MovieRes
             val movieImageUrl = "${Constants.IMAGE_BASE_URL}${movie.imagePath}"
             Glide.with(context)
                 .load(movieImageUrl)
+                .placeholder(R.drawable.placeholder)
                 .centerCrop()
                 .transform(RoundedCorners(20))
                 .into(holder.ivMovieImage)
