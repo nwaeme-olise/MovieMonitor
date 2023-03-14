@@ -10,6 +10,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.olisemeka.moviemonitor.data.repository.MovieRepositoryImpl
 import com.olisemeka.moviemonitor.databinding.FragmentMovieListBinding
 import com.olisemeka.moviemonitor.util.Resource
@@ -39,6 +42,7 @@ class MovieListFragment : Fragment() {
         val viewModel: MovieListViewModel by activityViewModels { MovieListViewModelProviderFactory(movieRepository)  }
         val adapter = MovieListAdapter(requireContext())
         binding.rvMovie.adapter = adapter
+        binding.rvMovie.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 //        binding.progressBar.isVisible = true
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
