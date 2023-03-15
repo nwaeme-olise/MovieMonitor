@@ -44,6 +44,7 @@ class MovieListFragment : Fragment() {
         binding.rvMovie.adapter = adapter
         binding.rvMovie.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 //        binding.progressBar.isVisible = true
+        binding.btRetry.setOnClickListener { adapter.retry() }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.movieFlow.collect{
@@ -55,6 +56,9 @@ class MovieListFragment : Fragment() {
             adapter.loadStateFlow.collect{
                 val state = it.refresh
                 binding.progressBar.isVisible = state is LoadState.Loading
+                binding.tvErrorMessage.isVisible = state is LoadState.Error
+                binding.ivError.isVisible = state is LoadState.Error
+                binding.btRetry.isVisible = state is LoadState.Error
             }
         }
 //        viewModel.movieListResults.observe(viewLifecycleOwner) { response ->
