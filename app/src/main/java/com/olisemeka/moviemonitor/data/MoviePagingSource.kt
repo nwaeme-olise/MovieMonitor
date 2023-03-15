@@ -10,7 +10,10 @@ import javax.inject.Inject
 
 class MoviePagingSource @Inject constructor(private val movieApi: MovieApi) : PagingSource<Int, MovieResult>() {
     override fun getRefreshKey(state: PagingState<Int, MovieResult>): Int? {
-        TODO("Not yet implemented")
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(1) ?:
+            state.closestPageToPosition(it)?.nextKey?.minus(1)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieResult> {

@@ -45,6 +45,10 @@ class MovieListFragment : Fragment() {
         binding.rvMovie.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 //        binding.progressBar.isVisible = true
         binding.btRetry.setOnClickListener { adapter.retry() }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            adapter.refresh()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.movieFlow.collect{
