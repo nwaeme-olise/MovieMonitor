@@ -20,7 +20,7 @@ class MovieListViewModel @Inject constructor(private val movieRepository: MovieR
 
     //    private val _movieListResults = MutableLiveData<Resource<MovieListResult>>()
 //    val movieListResults: LiveData<Resource<MovieListResult>> get() = _movieListResults
-    val movieFlow = movieRepository.getMovieListResults().cachedIn(viewModelScope)
+    val movieFlow = movieRepository.getMovieResults().cachedIn(viewModelScope)
 
 
 //    init {

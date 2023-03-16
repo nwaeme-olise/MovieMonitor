@@ -1,6 +1,8 @@
 package com.olisemeka.moviemonitor.data
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -12,6 +14,7 @@ data class MovieListResult(
 )
 
 @Parcelize
+@Entity(tableName="movie")
 data class MovieResult(
     @SerializedName("poster_path")
     val imagePath: String?,
@@ -29,5 +32,8 @@ data class MovieResult(
 
     @SerializedName("popularity")
     val rating: Float?,
-) : Parcelable
+) : Parcelable{
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null
+}
 

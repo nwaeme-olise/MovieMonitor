@@ -7,5 +7,5 @@ import com.olisemeka.moviemonitor.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
-    fun getMovieListResults(): Flow<PagingData<MovieResult>>
+    fun getMovieResults(): Flow<PagingData<MovieResult>>
 }
