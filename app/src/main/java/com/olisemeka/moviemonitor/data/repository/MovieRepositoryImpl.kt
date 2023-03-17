@@ -4,11 +4,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.olisemeka.moviemonitor.api.MovieApi
-import com.olisemeka.moviemonitor.api.RetrofitInstance
-import com.olisemeka.moviemonitor.data.MovieListResult
-import com.olisemeka.moviemonitor.data.MoviePagingSource
+import com.olisemeka.moviemonitor.data.paging.MoviePagingSource
 import com.olisemeka.moviemonitor.data.MovieResult
-import com.olisemeka.moviemonitor.util.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
