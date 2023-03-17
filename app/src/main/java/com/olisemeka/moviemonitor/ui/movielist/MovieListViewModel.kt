@@ -1,18 +1,9 @@
 package com.olisemeka.moviemonitor.ui.movielist
 
 import androidx.lifecycle.*
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.olisemeka.moviemonitor.data.MovieListResult
-import com.olisemeka.moviemonitor.data.MovieResult
 import com.olisemeka.moviemonitor.data.repository.MovieRepositoryImpl
-import com.olisemeka.moviemonitor.util.Constants
-import com.olisemeka.moviemonitor.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel

@@ -30,10 +30,10 @@ data class MovieResult(
     @SerializedName("genre_ids")
     val genreIds: List<Int>?,
 
+    @PrimaryKey(autoGenerate = false)
+    val id: Int?,
+
     @SerializedName("popularity")
     val rating: Float?,
-) : Parcelable{
-    @PrimaryKey(autoGenerate = true)
-    val id: Int? = null
-}
+) : Parcelable
 
