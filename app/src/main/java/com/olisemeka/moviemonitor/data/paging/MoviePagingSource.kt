@@ -20,7 +20,7 @@ class MoviePagingSource @Inject constructor(private val movieApi: MovieApi) : Pa
         return try{
             val nextPage = params.key ?: 1
             val response = movieApi.getMovieResults(page = nextPage)
-            val movieList = response.results ?: emptyList()
+            val movieList = response.results
 
             LoadResult.Page(
                 data = movieList,
