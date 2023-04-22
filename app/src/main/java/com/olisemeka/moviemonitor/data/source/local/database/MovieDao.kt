@@ -1,11 +1,12 @@
-package com.olisemeka.moviemonitor.data.database
+package com.olisemeka.moviemonitor.data.source.local.database
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.olisemeka.moviemonitor.data.MovieResult
+import com.olisemeka.moviemonitor.data.source.local.model.MovieResult
 
 @Dao
 interface MovieDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(movieList: List<MovieResult>)
 

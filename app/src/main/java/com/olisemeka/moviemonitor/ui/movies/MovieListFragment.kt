@@ -1,26 +1,26 @@
-package com.olisemeka.moviemonitor.ui.movielist
+package com.olisemeka.moviemonitor.ui.movies
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.olisemeka.moviemonitor.data.repository.MovieRepositoryImpl
 import com.olisemeka.moviemonitor.databinding.FragmentMovieListBinding
-import com.olisemeka.moviemonitor.util.Resource
+import com.olisemeka.moviemonitor.ui.movies.adapter.MovieListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieListFragment : Fragment() {
+
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
 
@@ -29,20 +29,30 @@ class MovieListFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel: MovieListViewModel by activityViewModels { MovieListViewModelProviderFactory(movieRepository)  }
-        val adapter = MovieListAdapter(requireContext())
+        val viewModel: MovieListViewModel by activityViewModels {
+            MovieListViewModelProviderFactory(
+                movieRepository
+            )
+        }
+        val adapter = MovieListAdapter {
+            val action =
+                MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(it)
+            view.findNavController().navigate(action)
+        }
         binding.rvMovie.adapter = adapter
-        binding.rvMovie.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        binding.rvMovie.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(), LinearLayoutManager.VERTICAL
+            )
+        )
 //        binding.progressBar.isVisible = true
         binding.btRetry.setOnClickListener { adapter.retry() }
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -51,13 +61,13 @@ class MovieListFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.movieFlow.collect{
+            viewModel.movieFlow.collect {
                 adapter.submitData(it)
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            adapter.loadStateFlow.collect{
+            adapter.loadStateFlow.collect {
                 val state = it.refresh
                 binding.progressBar.isVisible = state is LoadState.Loading
                 binding.tvErrorMessage.isVisible = state is LoadState.Error
@@ -65,8 +75,8 @@ class MovieListFragment : Fragment() {
                 binding.btRetry.isVisible = state is LoadState.Error
             }
         }
+
 //        viewModel.movieListResults.observe(viewLifecycleOwner) { response ->
-//
 //            when (response) {
 //                is Resource.Loading -> {
 //                    binding.progressBar.isVisible = true

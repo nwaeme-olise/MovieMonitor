@@ -7,20 +7,26 @@
 
     <fragment
         android:id="@+id/movieListFragment"
-        android:name="com.olisemeka.moviemonitor.ui.movielist.MovieListFragment"
+        android:name="com.olisemeka.moviemonitor.ui.movies.MovieListFragment"
         android:label="fragment_movie_list"
-        tools:layout="@layout/fragment_movie_list" >
+        tools:layout="@layout/fragment_movie_list">
+
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.olisemeka.moviemonitor.ui.moviedetails.MovieDetailsFragment"
+        android:name="com.olisemeka.moviemonitor.ui.details.MovieDetailsFragment"
         android:label="fragment_movie_details"
-        tools:layout="@layout/fragment_movie_details" >
+        tools:layout="@layout/fragment_movie_details">
+
         <argument
             android:name="movie"
-            app:argType="com.olisemeka.moviemonitor.data.MovieResult" />
+            app:argType="com.olisemeka.moviemonitor.data.source.local.model.MovieResult" />
+
     </fragment>
+
 </navigation>

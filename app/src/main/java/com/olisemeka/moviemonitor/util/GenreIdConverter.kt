@@ -1,11 +1,11 @@
 package com.olisemeka.moviemonitor.util
 
 object GenreIdConverter {
-    fun convertIdToGenre(genreIds: List<Int>?): String{
+    fun convertIdToGenre(genreIds: List<Int>?): String {
         val convertedGenreIds: MutableList<String> = mutableListOf()
         if (genreIds != null) {
-            for (genreId in genreIds){
-                when (genreId){
+            for (genreId in genreIds) {
+                when (genreId) {
                     28 -> convertedGenreIds.add("Action")
                     12 -> convertedGenreIds.add("Adventure")
                     16 -> convertedGenreIds.add("Animation")
