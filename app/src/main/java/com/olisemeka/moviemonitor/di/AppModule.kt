@@ -2,10 +2,11 @@ package com.olisemeka.moviemonitor.di
 
 import android.content.Context
 import androidx.room.Room
-import com.olisemeka.moviemonitor.api.MovieApi
-import com.olisemeka.moviemonitor.data.database.MovieDatabase
 import com.olisemeka.moviemonitor.data.repository.MovieRepositoryImpl
+import com.olisemeka.moviemonitor.data.source.local.database.MovieDatabase
+import com.olisemeka.moviemonitor.data.source.remote.api.MovieApi
 import com.olisemeka.moviemonitor.util.Constants
+import com.olisemeka.moviemonitor.util.Constants.DB_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +22,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit{
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -29,22 +30,22 @@ object AppModule {
     }
 
     @Provides
-    fun provideMovieApi(retrofit: Retrofit): MovieApi{
+    fun provideMovieApi(retrofit: Retrofit): MovieApi {
         return retrofit.create(MovieApi::class.java)
     }
 
     @Provides
-    fun provideMovieRepositoryImpl(movieApi: MovieApi): MovieRepositoryImpl{
+    fun provideMovieRepositoryImpl(movieApi: MovieApi): MovieRepositoryImpl {
         return MovieRepositoryImpl(movieApi)
     }
 
     @Provides
     @Singleton
-    fun provideMovieDatabase(@ApplicationContext context: Context): MovieDatabase{
+    fun provideMovieDatabase(@ApplicationContext context: Context): MovieDatabase {
         return Room.databaseBuilder(
             context,
             MovieDatabase::class.java,
-            "movie_db"
+            DB_NAME
         ).build()
     }
 }

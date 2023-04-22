@@ -1,23 +1,21 @@
-package com.olisemeka.moviemonitor.ui.moviedetails
+package com.olisemeka.moviemonitor.ui.details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.olisemeka.moviemonitor.data.repository.MovieRepositoryImpl
+import com.olisemeka.moviemonitor.data.source.local.model.MovieResult
 import com.olisemeka.moviemonitor.databinding.FragmentMovieDetailsBinding
-import com.olisemeka.moviemonitor.ui.movielist.MovieListViewModel
-import com.olisemeka.moviemonitor.ui.movielist.MovieListViewModelProviderFactory
 import com.olisemeka.moviemonitor.util.GenreIdConverter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
+
     private var _binding: FragmentMovieDetailsBinding? = null
     private val binding get() = _binding!!
 
@@ -27,20 +25,20 @@ class MovieDetailsFragment : Fragment() {
     private val args: MovieDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val movie = args.movie
-        binding.tvSynopsis.text = movie.overview
-        binding.tvReleaseDate.text = movie.releaseDate
-        binding.tvGenre.text = movie.genreIds.let {
-            GenreIdConverter.convertIdToGenre(it)
+        val movie: MovieResult = args.movie
+        movie.run {
+            binding.tvSynopsis.text = overview
+            binding.tvReleaseDate.text = releaseDate
+            binding.tvGenre.text = genreIds.let {
+                GenreIdConverter.convertIdToGenre(it)
+            }
         }
     }
 

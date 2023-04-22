@@ -1,4 +1,4 @@
-package com.olisemeka.moviemonitor.data.model
+package com.olisemeka.moviemonitor.data.source.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
