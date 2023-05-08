@@ -1,4 +1,4 @@
-package com.olisemeka.moviemonitor.data
+package com.olisemeka.moviemonitor.data.model
 
 import android.os.Parcelable
 import androidx.room.Entity

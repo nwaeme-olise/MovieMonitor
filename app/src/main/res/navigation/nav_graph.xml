@@ -21,6 +21,6 @@
         tools:layout="@layout/fragment_movie_details" >
         <argument
             android:name="movie"
-            app:argType="com.olisemeka.moviemonitor.data.MovieResult" />
+            app:argType="com.olisemeka.moviemonitor.data.model.MovieResult" />
     </fragment>
 </navigation>

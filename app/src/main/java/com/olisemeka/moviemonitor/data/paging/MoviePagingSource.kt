@@ -3,7 +3,7 @@ package com.olisemeka.moviemonitor.data.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.olisemeka.moviemonitor.api.MovieApi
-import com.olisemeka.moviemonitor.data.MovieResult
+import com.olisemeka.moviemonitor.data.model.MovieResult
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject

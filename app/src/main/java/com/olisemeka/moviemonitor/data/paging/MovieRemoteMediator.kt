@@ -4,8 +4,9 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.withTransaction
 import com.olisemeka.moviemonitor.api.MovieApi
-import com.olisemeka.moviemonitor.data.MovieResult
+import com.olisemeka.moviemonitor.data.model.MovieResult
 import com.olisemeka.moviemonitor.data.database.MovieDatabase
 import com.olisemeka.moviemonitor.data.model.MovieRemoteKeys
 import javax.inject.Inject

@@ -2,7 +2,7 @@ package com.olisemeka.moviemonitor.data.database
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.olisemeka.moviemonitor.data.MovieResult
+import com.olisemeka.moviemonitor.data.model.MovieResult
 
 @Dao
 interface MovieDao {

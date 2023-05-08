@@ -10,11 +10,10 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.olisemeka.moviemonitor.data.MovieResult
+import com.olisemeka.moviemonitor.data.model.MovieResult
 import com.olisemeka.moviemonitor.R
 import com.olisemeka.moviemonitor.util.Constants
 import com.olisemeka.moviemonitor.util.GenreIdConverter

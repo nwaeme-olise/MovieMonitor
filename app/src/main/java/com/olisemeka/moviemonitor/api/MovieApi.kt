@@ -1,6 +1,6 @@
 package com.olisemeka.moviemonitor.api
 
-import com.olisemeka.moviemonitor.data.MovieListResult
+import com.olisemeka.moviemonitor.data.model.MovieListResult
 import com.olisemeka.moviemonitor.util.Constants.API_KEY
 import com.olisemeka.moviemonitor.util.Constants.RELEASE_DATE_LTE
 import com.olisemeka.moviemonitor.util.Constants.SORT_ORDER

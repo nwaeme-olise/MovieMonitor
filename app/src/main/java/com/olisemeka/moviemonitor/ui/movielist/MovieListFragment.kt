@@ -51,8 +51,15 @@ class MovieListFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.movieFlow.collect{
-                adapter.submitData(it)
+            try {
+                viewModel.movieFlow.collect {
+                    Log.d("MovieListFragment", "About to fetch")
+                    adapter.submitData(it)
+                    Log.d("MovieListFragment", "Data fetched")
+                }
+            }
+            catch(e: Exception){
+                Log.e("MovieListFragment", e.message.toString())
             }
         }
 
@@ -63,6 +70,7 @@ class MovieListFragment : Fragment() {
                 binding.tvErrorMessage.isVisible = state is LoadState.Error
                 binding.ivError.isVisible = state is LoadState.Error
                 binding.btRetry.isVisible = state is LoadState.Error
+                Log.d("MovieListFragment", "E reach here")
             }
         }
 //        viewModel.movieListResults.observe(viewLifecycleOwner) { response ->

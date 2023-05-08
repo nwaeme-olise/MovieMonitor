@@ -34,13 +34,13 @@ object AppModule {
     }
 
     @Provides
-    fun provideMovieRepositoryImpl(movieApi: MovieApi): MovieRepositoryImpl{
-        return MovieRepositoryImpl(movieApi)
+    fun provideMovieRepositoryImpl(movieApi: MovieApi, movieDatabase: MovieDatabase): MovieRepositoryImpl{
+        return MovieRepositoryImpl(movieApi, movieDatabase)
     }
 
     @Provides
     @Singleton
-    fun provideMovieDatabase(@ApplicationContext context: Context): MovieDatabase{
+    fun provideDatabase(@ApplicationContext context: Context): MovieDatabase{
         return Room.databaseBuilder(
             context,
             MovieDatabase::class.java,
